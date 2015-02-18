@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoutePlannerConsole", "RoutePlannerConsole\RoutePlannerConsole.csproj", "{A32D5B92-CABC-4975-BED4-728FFCE5F4A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoutePlannerLib", "RoutePlannerLib\RoutePlannerLib.csproj", "{9DD6DC1D-E93B-40AA-89A1-62D68DC8C24D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A32D5B92-CABC-4975-BED4-728FFCE5F4A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A32D5B92-CABC-4975-BED4-728FFCE5F4A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A32D5B92-CABC-4975-BED4-728FFCE5F4A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A32D5B92-CABC-4975-BED4-728FFCE5F4A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9DD6DC1D-E93B-40AA-89A1-62D68DC8C24D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DD6DC1D-E93B-40AA-89A1-62D68DC8C24D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DD6DC1D-E93B-40AA-89A1-62D68DC8C24D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DD6DC1D-E93B-40AA-89A1-62D68DC8C24D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
