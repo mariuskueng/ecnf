@@ -22,7 +22,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
         {
             string output = "Waypoint: ";
             
-            if (string.IsNullOrEmpty(this.Name))
+            if (string.IsNullOrEmpty(this.Name) == false)
             {
                 output += string.Format("{0} ", this.Name);
             }
