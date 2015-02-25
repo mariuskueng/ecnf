@@ -20,6 +20,11 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerConsole
             var wayPoint2 = new WayPoint(null, 47.479319847061966, 8.212966918945312);
             Console.WriteLine(wayPoint2.ToString());
 
+            var bern = new WayPoint ("Bern", 46.9479220, 7.4446080);
+            var tripolis = new WayPoint ("Tripolis", 32.8133110, 13.1048450);
+
+            Console.WriteLine(bern.Distance(tripolis));
+
             Console.WriteLine("Press any key to quit");
             Console.ReadKey();
         }

@@ -29,5 +29,28 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
             output += string.Format("{0}/{1}", Math.Round(this.Latitude, 2), Math.Round(this.Longitude, 2));
             return output;
         }
+
+        public double ConvertToRadians(double angle)
+        {
+            return (Math.PI / 180) * angle;
+        }
+
+        public double Distance (WayPoint target) 
+        {   
+            // d = R arccos [sin (φa) •sin(φb) + cos(φa) • cos(φb) • cos(λa - λb)]
+            const int R = 6371; // kilometres
+            var φ1 = this.ConvertToRadians (this.Latitude);
+            var φ2 = this.ConvertToRadians (target.Latitude);
+            var Δφ = this.ConvertToRadians (target.Latitude - this.Latitude);
+            var Δλ = this.ConvertToRadians (target.Longitude - this.Longitude);
+
+            var a = Math.Sin(Δφ/2) * Math.Sin(Δφ/2) +
+                Math.Cos(φ1) * Math.Cos(φ2) *
+                Math.Sin(Δλ/2) * Math.Sin(Δλ/2);
+            var c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1-a));
+
+            var distance = Math.Round(R * c);
+            return distance;
+        }
     }
 }
