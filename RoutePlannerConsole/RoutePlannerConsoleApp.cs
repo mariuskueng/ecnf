@@ -24,12 +24,12 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerConsole
             var tripolis = new WayPoint ("Tripolis", 32.8133110, 13.1048450);
             var rio = new WayPoint ("Rio de Janeiro", -22.908970, -43.175922);
 
-            Console.WriteLine(bern.Distance(tripolis));
+            Console.WriteLine(Math.Round(bern.Distance(tripolis), 2));
 
             Cities staedte = new Cities ();
             staedte.ReadCities ("citiesTestDataLab2.txt");
            
-            Console.WriteLine (staedte.count);
+            Console.WriteLine (staedte.Count);
             try
             {
                 Console.WriteLine(staedte[0].Name);

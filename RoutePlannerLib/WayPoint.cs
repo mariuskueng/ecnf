@@ -20,7 +20,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 
         public override string ToString()
         {
-            string output = "Waypoint: ";
+            string output = "WayPoint: ";
             
             if (string.IsNullOrEmpty(this.Name) == false)
             {
@@ -49,7 +49,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
                 Math.Sin(Δλ/2) * Math.Sin(Δλ/2);
             var c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1-a));
 
-            var distance = Math.Round(R * c);
+            var distance = (R * c);
             return distance;
         }
     }

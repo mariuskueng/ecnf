@@ -8,7 +8,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
     public class Cities
     {
         public List<City> citiesList;
-        public int count {
+        public int Count {
             get { return citiesList.Count; }
         }
 
@@ -33,6 +33,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
         {
             TextReader reader = new StreamReader(filename);
             string line;
+            var count = 0;
             while ((line = reader.ReadLine()) != null)
             {
                 var lineContents = line.Split('\t');
@@ -43,20 +44,33 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
                     Convert.ToDouble(lineContents[3], CultureInfo.InvariantCulture.NumberFormat),
                     Convert.ToDouble(lineContents[4], CultureInfo.InvariantCulture.NumberFormat)
                 ));
+                count++;
             }
             reader.Close();
-            return citiesList.Count;
+            return count;
         }
 
         public List<City> FindNeighbours(WayPoint location, double distance)
         {
+            SortedDictionary<double, City> citiesDict = new SortedDictionary<double, City>();
             List<City> neighbours = new List<City>();
-            for (int i = 0; i < count; i++) {
-                if (citiesList [i].Location.Distance (location) < distance) {
-                    neighbours.Add(citiesList[i]);
+            double currentDistance;
+
+            // add cities to SortedDictionary based on their distances
+            foreach (City city in citiesList)
+            {
+                currentDistance = city.Location.Distance(location);
+                if (currentDistance < distance)
+                {
+                    citiesDict.Add(currentDistance, city);
                 }
             }
-//            neighbours = neighbours.Sort((x, y) => x.Location.Distance.compareTo(y.Location.Distance));
+
+            // Add all cities to List
+            foreach (KeyValuePair<double, City> entry in citiesDict)
+            {
+                neighbours.Add(entry.Value);
+            }
             return neighbours;
         }
     }
