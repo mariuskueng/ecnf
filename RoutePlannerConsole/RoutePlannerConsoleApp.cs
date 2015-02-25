@@ -22,6 +22,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerConsole
 
             var bern = new WayPoint ("Bern", 46.9479220, 7.4446080);
             var tripolis = new WayPoint ("Tripolis", 32.8133110, 13.1048450);
+            var rio = new WayPoint ("Rio de Janeiro", -22.908970, -43.175922);
 
             Console.WriteLine(bern.Distance(tripolis));
 
@@ -35,6 +36,10 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerConsole
                 Console.WriteLine (staedte [10].Name);
             } catch (NullReferenceException ex) {
                 Console.WriteLine ("City doesn't exist");
+            }
+
+            foreach (var city in staedte.FindNeighbours (rio, 1000)) {
+                Console.WriteLine (city.Name);    
             }
 
             Console.WriteLine("Press any key to quit");

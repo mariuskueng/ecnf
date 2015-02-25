@@ -46,6 +46,17 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
             reader.Close();
             return cities.Count;
         }
+
+        public List<City> FindNeighbours(WayPoint location, double distance)
+        {
+            List<City> neighbours = new List<City>();
+            for (int i = 0; i < count; i++) {
+                if (cities [i].Location.Distance (location) < distance) {
+                    neighbours.Add(cities[i]);
+                }
+            }
+            return neighbours;
+        }
     }
 }
 
