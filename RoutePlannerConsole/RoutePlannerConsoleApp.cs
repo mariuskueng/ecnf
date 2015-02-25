@@ -26,7 +26,16 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerConsole
             Console.WriteLine(bern.Distance(tripolis));
 
             Cities staedte = new Cities ();
-            Console.WriteLine (staedte.ReadCities ("citiesTestDataLab2.txt"));
+            staedte.ReadCities ("citiesTestDataLab2.txt");
+           
+            Console.WriteLine (staedte.count);
+            Console.WriteLine (staedte [0].Name);
+
+            try {
+                Console.WriteLine (staedte [10].Name);
+            } catch (NullReferenceException ex) {
+                Console.WriteLine ("City doesn't exist");
+            }
 
             Console.WriteLine("Press any key to quit");
             Console.ReadKey();

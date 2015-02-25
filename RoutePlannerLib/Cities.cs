@@ -7,10 +7,25 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
     public class Cities
     {
         public List<City> cities;
+        public int count {
+            get { return cities.Count; }
+        }
 
         public Cities ()
         {
             this.cities = new List<City> ();
+        }
+
+        public City this[int index] //indexer implementation 
+        {
+            get { 
+                try {
+                    return this.cities[index];
+                } catch (ArgumentOutOfRangeException ex) {
+                    return null;
+                }
+            }
+            set { this.cities[index] = value; }
         }
 
         public int ReadCities(string filename)
