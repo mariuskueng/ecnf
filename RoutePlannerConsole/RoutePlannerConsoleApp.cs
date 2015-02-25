@@ -30,11 +30,19 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerConsole
             staedte.ReadCities ("citiesTestDataLab2.txt");
            
             Console.WriteLine (staedte.count);
-            Console.WriteLine (staedte [0].Name);
+            try
+            {
+                Console.WriteLine(staedte[0].Name);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            
 
             try {
                 Console.WriteLine (staedte [10].Name);
-            } catch (NullReferenceException ex) {
+            } catch (NullReferenceException) {
                 Console.WriteLine ("City doesn't exist");
             }
 
