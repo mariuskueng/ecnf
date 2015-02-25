@@ -25,8 +25,12 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerConsole
 
             Console.WriteLine(bern.Distance(tripolis));
 
+            Cities staedte = new Cities ();
+            Console.WriteLine (staedte.ReadCities ("citiesTestDataLab2.txt"));
+
             Console.WriteLine("Press any key to quit");
             Console.ReadKey();
+
         }
     }
 }
