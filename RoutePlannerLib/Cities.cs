@@ -55,6 +55,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
                     neighbours.Add(cities[i]);
                 }
             }
+//            neighbours = neighbours.Sort((x, y) => x.Location.Distance.compareTo(y.Location.Distance));
             return neighbours;
         }
     }
