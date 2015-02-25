@@ -16,7 +16,9 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerConsole
                 Assembly.GetExecutingAssembly().GetName().Version);
 
             var wayPoint = new WayPoint("Windisch", 47.479319847061966, 8.212966918945312);
-            Console.WriteLine("{0}: {1}/{2}", wayPoint.Name, wayPoint.Latitude, wayPoint.Longitude);
+            Console.WriteLine(wayPoint.ToString());
+            var wayPoint2 = new WayPoint(null, 47.479319847061966, 8.212966918945312);
+            Console.WriteLine(wayPoint2.ToString());
 
             Console.WriteLine("Press any key to quit");
             Console.ReadKey();
