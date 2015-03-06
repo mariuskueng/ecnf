@@ -8,11 +8,11 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 {
     public class RouteRequestEventArgs : System.EventArgs
     {
-        public City fromCity;
-        public City toCity;
+        public string fromCity;
+        public string toCity;
         public TransportModes transportMode;
 
-        public RouteRequestEventArgs (City from, City to, TransportModes mode)
+        public RouteRequestEventArgs(string from, string to, TransportModes mode)
         {
             this.fromCity = from;
             this.toCity = to;
