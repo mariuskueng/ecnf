@@ -73,6 +73,14 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
             }
             return neighbours;
         }
+
+        public City FindCity(string cityName)
+        {
+            return citiesList.Find(delegate(City city)
+            {
+                return city.Name.Equals(cityName, StringComparison.InvariantCultureIgnoreCase);
+            });
+        }
     }
 }
 
