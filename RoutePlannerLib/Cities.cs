@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 
 namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 {
@@ -52,26 +53,9 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 
         public List<City> FindNeighbours(WayPoint location, double distance)
         {
-            SortedDictionary<double, City> citiesDict = new SortedDictionary<double, City>();
-            List<City> neighbours = new List<City>();
-            double currentDistance;
+            var neighbours = citiesList.Where(c => location.Distance(c.Location) <= distance);
+            return neighbours.OrderBy(o => location.Distance(o.Location)).ToList();
 
-            // add cities to SortedDictionary based on their distances
-            foreach (City city in citiesList)
-            {
-                currentDistance = city.Location.Distance(location);
-                if (currentDistance < distance)
-                {
-                    citiesDict.Add(currentDistance, city);
-                }
-            }
-
-            // Add all cities to List
-            foreach (KeyValuePair<double, City> entry in citiesDict)
-            {
-                neighbours.Add(entry.Value);
-            }
-            return neighbours;
         }
 
         public City FindCity(string cityName)
