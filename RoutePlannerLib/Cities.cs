@@ -32,22 +32,22 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 
         public int ReadCities(string filename)
         {
-            TextReader reader = new StreamReader(filename);
-            string line;
             var count = 0;
-            while ((line = reader.ReadLine()) != null)
+            using (TextReader reader = new StreamReader(filename))
             {
-                var lineContents = line.Split('\t');
-                citiesList.Add(new City(
-                    lineContents[0],
-                    lineContents[1],
-                    Convert.ToInt32(lineContents[2]),
-                    Convert.ToDouble(lineContents[3], CultureInfo.InvariantCulture.NumberFormat),
-                    Convert.ToDouble(lineContents[4], CultureInfo.InvariantCulture.NumberFormat)
-                ));
-                count++;
+                IEnumerable<string[]> citiesAsStrings = reader.GetSplittedLines('\t');
+                foreach (var lineContents in citiesAsStrings)
+                {
+                    citiesList.Add(new City(
+                       lineContents[0].Trim(),
+                       lineContents[1].Trim(),
+                       Convert.ToInt32(lineContents[2]),
+                       Convert.ToDouble(lineContents[3], CultureInfo.InvariantCulture.NumberFormat),
+                       Convert.ToDouble(lineContents[4], CultureInfo.InvariantCulture.NumberFormat)
+                   ));
+                   count++;
+                }
             }
-            reader.Close();
             return count;
         }
 
