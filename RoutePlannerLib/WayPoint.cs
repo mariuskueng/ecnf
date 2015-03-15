@@ -52,5 +52,19 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
             var distance = (R * c);
             return distance;
         }
+
+        public static WayPoint operator +(WayPoint lhs, WayPoint rhs)
+        {
+            var re = lhs.Latitude + rhs.Latitude;
+            var im = lhs.Longitude + rhs.Longitude;
+            return new WayPoint(lhs.Name, re, im);
+        }
+
+        public static WayPoint operator -(WayPoint lhs, WayPoint rhs)
+        {
+            var re = lhs.Latitude - rhs.Latitude;
+            var im = lhs.Longitude - rhs.Longitude;
+            return new WayPoint(lhs.Name, re, im);
+        }
     }
 }
