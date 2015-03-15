@@ -22,7 +22,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
             }
             else
             {
-                requestCounter.Add(args.ToCity, 1);
+                requestCounter[args.ToCity] = 1;
             }
 
             Console.WriteLine("Current Request state");

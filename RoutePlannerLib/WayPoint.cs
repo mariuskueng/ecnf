@@ -26,7 +26,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
             {
                 output += string.Format("{0} ", this.Name);
             }
-            output += string.Format("{0}/{1}", Math.Round(this.Latitude, 2), Math.Round(this.Longitude, 2));
+            output += string.Format("{0:0.##}/{1:0.##}", this.Latitude, this.Longitude);
             return output;
         }
 
