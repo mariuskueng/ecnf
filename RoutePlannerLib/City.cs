@@ -16,6 +16,30 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
             this.Population = p;
             this.Location = new WayPoint(n, lat, lon);
         }
+
+        public override bool Equals(object obj)
+        {
+            // If parameter is null return false.
+            if (obj == null)
+            {
+                return false;
+            }
+
+            // If parameter cannot be cast to Point return false.
+            City c = obj as City;
+            if ((System.Object)c == null)
+            {
+                return false;
+            }
+
+            // Return true if the fields match:
+            return (this.Name == c.Name) && (this.Country == c.Country);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
 }
 

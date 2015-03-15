@@ -65,6 +65,34 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
                 return city.Name.Equals(cityName, StringComparison.InvariantCultureIgnoreCase);
             });
         }
+
+        /// <summary>
+        /// Find all cities between 2 cities 
+        /// </summary>
+        /// <param name="from">source city</param>
+        /// <param name="to">target city</param>
+        /// <returns>list of cities</returns>
+        public List<City> FindCitiesBetween(City from, City to)
+        {
+            var foundCities = new List<City>();
+            if (from == null || to == null)
+                return foundCities;
+
+            foundCities.Add(from);
+
+            var minLat = Math.Min(from.Location.Latitude, to.Location.Latitude);
+            var maxLat = Math.Max(from.Location.Latitude, to.Location.Latitude);
+            var minLon = Math.Min(from.Location.Longitude, to.Location.Longitude);
+            var maxLon = Math.Max(from.Location.Longitude, to.Location.Longitude);
+
+            // rename the name of the "cities" variable to your name of the internal City-List
+            foundCities.AddRange(citiesList.FindAll(c =>
+                c.Location.Latitude > minLat && c.Location.Latitude < maxLat
+                        && c.Location.Longitude > minLon && c.Location.Longitude < maxLon));
+
+            foundCities.Add(to);
+            return foundCities;
+        }
     }
 }
 
