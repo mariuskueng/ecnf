@@ -98,9 +98,9 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
         private List<Link> FindPath(List<City> citiesOnRoute, TransportModes mode)
         {
             var cityLinks = new List<Link>();
-            foreach (var city in citiesOnRoute)
+            for (int i = 0; i < citiesOnRoute.Count - 1; i++)
             {
-                cityLinks.Add(FindLink(citiesOnRoute[0], city, mode));
+                cityLinks.Add(FindLink(citiesOnRoute[i], citiesOnRoute[i + 1], mode));
             }
             return cityLinks;
         }
