@@ -9,6 +9,14 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
         public int Population { get; set; }
         public WayPoint Location { get; set; }
 
+        public City ()
+        {
+            this.Name = "";
+            this.Country = "";
+            this.Population = 0;
+            this.Location = new WayPoint();
+        }
+
         public City (string n, string c, int p, double lat, double lon)
         {
             this.Name = n;
