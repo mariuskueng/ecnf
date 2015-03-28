@@ -36,18 +36,16 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
             var count = 0;
             using (TextReader reader = new StreamReader(filename))
             {
-                IEnumerable<string[]> citiesAsStrings = reader.GetSplittedLines('\t');
-                foreach (var lineContents in citiesAsStrings)
-                {
-                    citiesList.Add(new City(
-                       lineContents[0].Trim(),
-                       lineContents[1].Trim(),
-                       Convert.ToInt32(lineContents[2]),
-                       Convert.ToDouble(lineContents[3], CultureInfo.InvariantCulture.NumberFormat),
-                       Convert.ToDouble(lineContents[4], CultureInfo.InvariantCulture.NumberFormat)
-                   ));
-                   count++;
-                }
+                List<string[]> citiesAsStrings = reader.GetSplittedLines('\t').ToList();
+                count = citiesAsStrings.Count;
+                citiesAsStrings.ForEach(c => citiesList.Add(new City(
+                       c[0].Trim(),
+                       c[1].Trim(),
+                       Convert.ToInt32(c[2]),
+                       Convert.ToDouble(c[3], CultureInfo.InvariantCulture.NumberFormat),
+                       Convert.ToDouble(c[4], CultureInfo.InvariantCulture.NumberFormat)
+                   )));
+                
             }
             return count;
         }
