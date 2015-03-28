@@ -211,10 +211,18 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
             return citiesOnRoute;
         }
 
-
+        /// <summary>
+        /// Lab 6 Aufgabe 3, Städte die mind. in einer Route vorkommen
+        /// </summary>
+        /// <param name="transportMode">transportation mode</param>
+        /// <returns>list of cities</returns>
         public City[] FindCities(TransportModes transportMode)
         {
-            return routes.Where(r => r.TransportMode.Equals(transportMode)).GroupBy(l => l.FromCity).Select(c => c.First()).ToArray();
+            var fromCities = routes.Where(r => r.TransportMode.Equals(transportMode))
+                .Select(f => f.FromCity).Distinct();
+            var toCities = routes.Where(r => r.TransportMode.Equals(transportMode))
+                .Select(t => t.ToCity).Distinct();
+            return fromCities.Union(toCities).ToArray();
         }
     }
 }
