@@ -211,5 +211,10 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
             return citiesOnRoute;
         }
 
+
+        public City[] FindCities(TransportModes transportMode)
+        {
+            return routes.Where(r => r.TransportMode.Equals(transportMode)).GroupBy(l => l.FromCity).Select(c => c.First()).ToArray();
+        }
     }
 }
