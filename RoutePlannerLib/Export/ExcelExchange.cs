@@ -7,7 +7,7 @@ using Microsoft.Office.Interop.Excel;
 
 namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib.Export
 {
-    class ExcelExchange
+    public class ExcelExchange
     {
         Application excelApp;
         public void WriteToFile(String fileName, City from, City to, List<Link> links)
@@ -24,7 +24,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib.Export
             Range excelHeader = excelWorksheet.get_Range("A1", "D1");
             excelHeader.Font.Size = 14;
             excelHeader.Font.Bold = true;
-            excelHeader.BorderAround2(XlBorderWeight.xlThin);
+            excelHeader.Cells.BorderAround(XlLineStyle.xlContinuous, XlBorderWeight.xlThin);
 
             // add headers
             excelWorksheet.Cells[1,1] = "From";
@@ -45,6 +45,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib.Export
                         excelWorksheet.Cells[line, 3] = link.Distance;
                         excelWorksheet.Cells[line, 4] = link.TransportMode;
                         line++;
+                        from = link.ToCity;
                     }
                 }
             }
