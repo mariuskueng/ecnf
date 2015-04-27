@@ -38,20 +38,26 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
         {
             citiesLogger.TraceEvent(TraceEventType.Information, 1, "ReadCities started");
             var count = 0;
-            using (TextReader reader = new StreamReader(filename))
-            {
-                List<string[]> citiesAsStrings = reader.GetSplittedLines('\t').ToList();
-                count = citiesAsStrings.Count;
-                citiesAsStrings.ForEach(c => citiesList.Add(new City(
-                       c[0].Trim(),
-                       c[1].Trim(),
-                       Convert.ToInt32(c[2]),
-                       Convert.ToDouble(c[3], CultureInfo.InvariantCulture.NumberFormat),
-                       Convert.ToDouble(c[4], CultureInfo.InvariantCulture.NumberFormat)
-                   )));
+            try { 
+                using (TextReader reader = new StreamReader(filename))
+                {
+                    List<string[]> citiesAsStrings = reader.GetSplittedLines('\t').ToList();
+                    count = citiesAsStrings.Count;
+                    citiesAsStrings.ForEach(c => citiesList.Add(new City(
+                           c[0].Trim(),
+                           c[1].Trim(),
+                           Convert.ToInt32(c[2]),
+                           Convert.ToDouble(c[3], CultureInfo.InvariantCulture.NumberFormat),
+                           Convert.ToDouble(c[4], CultureInfo.InvariantCulture.NumberFormat)
+                       )));
                 
+                }
+                citiesLogger.TraceEvent(TraceEventType.Information, 2, "ReadCities ended");
             }
-            citiesLogger.TraceEvent(TraceEventType.Information, 2, "ReadCities ended");
+            catch (IOException e)
+            {
+                citiesLogger.TraceEvent(TraceEventType.Critical, 3, e.StackTrace);
+            }
             return count;
         }
 

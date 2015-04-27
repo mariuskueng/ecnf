@@ -28,6 +28,9 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerConsole
 
             Cities staedte = new Cities ();
             staedte.ReadCities ("citiesTestDataLab2.txt");
+
+            Cities staedte2 = new Cities();
+            staedte2.ReadCities("nofile.txt");
            
             Console.WriteLine (staedte.Count);
             try
