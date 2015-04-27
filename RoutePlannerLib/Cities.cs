@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Diagnostics;
 using Fhnw.Ecnf.RoutePlanner.RoutePlannerLib.Util;
 
 namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
@@ -13,6 +14,8 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
         public int Count {
             get { return citiesList.Count; }
         }
+        private static TraceSource citiesLogger =
+            new TraceSource("Cities");
 
         public Cities ()
         {
@@ -33,6 +36,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 
         public int ReadCities(string filename)
         {
+            citiesLogger.TraceEvent(TraceEventType.Information, 1, "ReadCities started");
             var count = 0;
             using (TextReader reader = new StreamReader(filename))
             {
@@ -47,6 +51,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
                    )));
                 
             }
+            citiesLogger.TraceEvent(TraceEventType.Information, 2, "ReadCities ended");
             return count;
         }
 
