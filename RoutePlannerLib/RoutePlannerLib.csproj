@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dynamic\World.cs" />
     <Compile Include="Export\ExcelExchange.cs" />
     <Compile Include="IRoutes.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
