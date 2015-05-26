@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Globalization;
+using System.Xml.Serialization;
 
 namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib.Util
 {
@@ -16,7 +17,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib.Util
         {
             this.stream = stream;
         }
-
+        
         public void Next(Object c)
         {
             /*
@@ -40,19 +41,21 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib.Util
                 stream.Write("Instance of {0}\r\n", c.GetType().FullName);
                 foreach (var p in c.GetType().GetProperties())
                 {
-                    var propertyValue = p.GetValue(c);
-                    if (propertyValue is string)
-                    {
-                        stream.Write("{0}=\"{1}\"\r\n", p.Name, propertyValue);
+                    if (p.CustomAttributes.Select(x => x.AttributeType == typeof(XmlIgnoreAttribute)).Count() != 1) { 
+                        var propertyValue = p.GetValue(c);
+                        if (propertyValue is string)
+                        {
+                            stream.Write("{0}=\"{1}\"\r\n", p.Name, propertyValue);
+                        }
+                        else if (propertyValue is System.ValueType)
+                        {
+                            stream.Write("{0}={1}\r\n", p.Name, Convert.ToString(propertyValue, CultureInfo.InvariantCulture.NumberFormat));
+                        }
+                        else
+                        {
+                            stream.Write("{0} is a nested object...\r\n", p.Name);
+                            this.Next(propertyValue);
                     }
-                    else if (propertyValue is System.ValueType)
-                    {
-                        stream.Write("{0}={1}\r\n", p.Name, Convert.ToString(propertyValue, CultureInfo.InvariantCulture.NumberFormat));
-                    }
-                    else
-                    {
-                        stream.Write("{0} is a nested object...\r\n", p.Name);
-                        this.Next(propertyValue);
                     }
                 }
                 stream.Write("End of instance\r\n");

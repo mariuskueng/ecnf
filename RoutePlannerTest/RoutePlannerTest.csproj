@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="Lab06Test.cs" />
     <Compile Include="Lab07Test.cs" />
+    <Compile Include="Lab10Test.cs" />
     <Compile Include="Lab2Test.cs" />
     <Compile Include="Lab3Test.cs" />
     <Compile Include="Lab4Test.cs" />
@@ -67,6 +68,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="data\citiesTestDataLab10.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="data\citiesTestDataLab2.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -74,6 +78,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="data\citiesTestDataLab4.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\linksTestDataLab10.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="data\linksTestDataLab3.txt">

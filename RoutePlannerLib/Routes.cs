@@ -69,7 +69,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 
         }
 
-        public List<Link> FindShortestRouteBetween(string fromCity, string toCity,
+        public virtual List<Link> FindShortestRouteBetween(string fromCity, string toCity,
                                         TransportModes mode)
         {
             if (RouteRequestEvent != null)
