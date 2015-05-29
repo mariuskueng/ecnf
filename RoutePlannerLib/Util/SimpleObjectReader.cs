@@ -44,21 +44,23 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib.Util
                     {
                         line = lines.Split('=');
                         property = obj.GetType().GetProperty(line[0]);
-
+                 
                         // if 'Instance of' occurs there won't be a '='
                         if (property != null)
                         {
-                            if (property.GetValue(obj) is string)
+                            Object objValue = property.GetValue(obj);
+
+                            if (objValue is string)
                             {
                                 property.SetValue(obj, line[1].Trim('\"'));
                             }
-                            else if (property.GetValue(obj) is System.ValueType)
+                            else if (objValue is System.ValueType)
                             {
-                                if (property.GetValue(obj) is Int32)
+                                if (objValue is Int32)
                                 {
                                     property.SetValue(obj, Int32.Parse(line[1]));
                                 }
-                                else if (property.GetValue(obj) is double)
+                                else if (objValue is double)
                                 {
                                     property.SetValue(obj, double.Parse(line[1], CultureInfo.InvariantCulture.NumberFormat));
                                 }
