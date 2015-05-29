@@ -48,7 +48,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerTest
             var cities = new Cities();
             cities.ReadCities(CitiesTestFile);
 
-            var routes = new Routes(cities);
+            var routes = new RoutesDijkstra(cities);
 
             var count = routes.ReadRoutes(LinksTestFile);
             Assert.AreEqual(7, count);
@@ -61,7 +61,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerTest
             var cities = new Cities();
             cities.ReadCities(CitiesTestFile);
 
-            var routes = new Routes(cities);
+            var routes = new RoutesDijkstra(cities);
 
             // test available cities
             routes.RouteRequestEvent += TestForCorrectEventArgsWithFoundCities;
@@ -91,7 +91,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerTest
             var cities = new Cities();
             cities.ReadCities(CitiesTestFile);
 
-            var routes = new Routes(cities);
+            var routes = new RoutesDijkstra(cities);
 
             // must run without exception
             routes.FindShortestRouteBetween("Bern", "Zürich", TransportModes.Rail);
@@ -105,7 +105,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerTest
             var cities = new Cities();
             cities.ReadCities(CitiesTestFile);
 
-            var routes = new Routes(cities);
+            var routes = new RoutesDijkstra(cities);
 
             routes.RouteRequestEvent += reqWatch.LogRouteRequests;
 

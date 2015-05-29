@@ -53,7 +53,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerConsole
                 Console.WriteLine (city.Name);    
             }
 
-            Routes routes = new Routes(staedte);
+            Routes routes = new RoutesDijkstra(staedte);
             Console.WriteLine("Routes count={0}", routes.ReadRoutes("linksTestDataLab3.txt"));
 
             Console.WriteLine("Press any key to quit");
