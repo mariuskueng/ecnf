@@ -29,7 +29,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
         }
 
         public override List<Link> FindShortestRouteBetween(string fromCity, string toCity,
-                                        TransportModes mode)
+                                        TransportModes mode, Progress<string> progress)
         {
             
             NotifyObservers(this, new RouteRequestEventArgs(fromCity, toCity, mode));

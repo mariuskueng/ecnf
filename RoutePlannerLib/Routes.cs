@@ -6,6 +6,7 @@ using System.Threading;
 using System.Linq;
 using System.Diagnostics;
 using Fhnw.Ecnf.RoutePlanner.RoutePlannerLib;
+using System.Threading.Tasks;
 
 namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 {
@@ -77,7 +78,25 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
         }
 
         public abstract List<Link> FindShortestRouteBetween(string fromCity, string toCity,
-                                        TransportModes mode);
+                                        TransportModes mode, Progress<string> progress);
+
+        public List<Link> FindShortestRouteBetween(string fromCity, string toCity,
+                                        TransportModes mode)
+        {
+            return FindShortestRouteBetween(fromCity, toCity, mode, null);
+        }
+     
+        public Task<List<Link>> FindShortestRouteBetweenAsync(string fromCity, string toCity,
+                                        TransportModes mode)
+        {
+            return Task.Run(() => FindShortestRouteBetween(fromCity, toCity, mode));
+        }
+
+        public Task<List<Link>> FindShortestRouteBetweenAsync(string fromCity, string toCity,
+                                        TransportModes mode, Progress<string> progress)
+        {
+            return Task.Run(() => FindShortestRouteBetween(fromCity, toCity, mode, progress));
+        }
 
         protected static List<City> FillListOfNodes(List<City> cities, out Dictionary<City, double> dist, out Dictionary<City, City> previous)
         {
