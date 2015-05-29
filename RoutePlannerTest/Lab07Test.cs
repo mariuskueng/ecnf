@@ -14,6 +14,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerTest
     {
         [TestMethod]
         [TestCategory("SkipOnBuildServer")]
+        [IgnoreAttribute]
         public void TestExcelExport()
         {
             var excelFileName = Directory.GetCurrentDirectory() + @"\ExportTest.xlsx";
