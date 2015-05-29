@@ -62,12 +62,20 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 
         private List<Link> FindAllLinks(List<City> cities, TransportModes mode)
         {
+            if (ExecuteParallel)
+                return FindAllLinksAsParallel(cities, mode);
+
             var links= new List<Link>();
             foreach(Link r in routes)
                 if( r.IsIncludedIn( cities ) )
                     links.Add(r);
 
             return links;
+        }
+
+        private List<Link> FindAllLinksAsParallel(List<City> cities, TransportModes mode)
+        {
+            return routes.AsParallel().Where(r => r.IsIncludedIn(cities)).ToList();
         }
 
         private City FindCity(string cityName, List<City> cities)
@@ -77,6 +85,11 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
                     return c;
 
             return null;
+        }
+
+        private City FindCityAsParallel(string cityName, List<City> cities)
+        {
+            return cities.AsParallel().FirstOrDefault(c => c.Name == cityName);
         }
 
         private List<City> GetIntermediatePath(City source, City target)
