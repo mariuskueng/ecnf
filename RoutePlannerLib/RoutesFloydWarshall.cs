@@ -24,11 +24,11 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
         public override List<Link> FindShortestRouteBetween(string fromCity, string toCity,
                                         TransportModes mode)
         {
-            List<City> cities = cities.FindCitiesBetween(cities.FindCity(fromCity), cities.FindCity(toCity));
-            if (cities == null || cities.Count < 1)
+            List<City> citiesBetween = cities.FindCitiesBetween(cities.FindCity(fromCity), cities.FindCity(toCity));
+            if (citiesBetween == null || citiesBetween.Count < 1)
                 return null;
 
-            List<Link> links = FindAllLinks(cities, mode);
+            List<Link> links = FindAllLinks(citiesBetween, mode);
             if (links == null || links.Count < 1)
                 return null;
 
@@ -36,10 +36,10 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
             stopWatch.Start();
             long ts0=stopWatch.ElapsedMilliseconds;
 
-            Setup(cities, links);
+            Setup(citiesBetween, links);
 
-            City source = FindCity( fromCity, cities );
-            City target = FindCity(toCity, cities);
+            City source = FindCity(fromCity, citiesBetween);
+            City target = FindCity(toCity, citiesBetween);
             if (D[source.Index, target.Index] == Double.MaxValue)
                 return new List<Link>(); // no path between source and target
 

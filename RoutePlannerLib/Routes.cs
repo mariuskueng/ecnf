@@ -17,8 +17,8 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 
     public class Routes : IRoutes
     {
-        List<Link> routes = new List<Link>();
-        Cities cities;
+        public List<Link> routes = new List<Link>();
+        public Cities cities;
         public event RouteRequestHandler RouteRequestEvent;
         private static TraceSource routesLogger =
            new TraceSource("Routes");
