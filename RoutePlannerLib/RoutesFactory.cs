@@ -19,7 +19,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
         {
             try
             {
-                Assembly routeLib = Assembly.LoadFrom("RoutePlannerLib.dll");
+                Assembly routeLib = Assembly.GetExecutingAssembly();
                 Type routeClass = routeLib.GetType(algorithmClassName);
                 if (routeClass != null)
                 {
@@ -31,7 +31,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
             catch (DllNotFoundException)
             {
 
-                throw new DllNotFoundException("RoutePlannerLib.dll not found.");
+                throw new DllNotFoundException(String.Format("{0} not found.", Assembly.GetExecutingAssembly().FullName));
             }
 
             return null;
