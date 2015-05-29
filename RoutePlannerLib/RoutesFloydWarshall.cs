@@ -15,14 +15,14 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
     {
         private double [,]D;
         private City [,]P;
-        
+
         public RoutesFloydWarshall(Cities cities):base(cities)
         {
         }
 
 
         public override List<Link> FindShortestRouteBetween(string fromCity, string toCity,
-                                        TransportModes mode, Progress<string> progress)
+                                        TransportModes mode, IProgress<string> progress)
         {
             List<City> citiesBetween = cities.FindCitiesBetween(cities.FindCity(fromCity), cities.FindCity(toCity));
             if (citiesBetween == null || citiesBetween.Count < 1)
@@ -54,7 +54,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
                 City to = path.ElementAt(i + 1);
                 route.Add( new Link(from, to, D[from.Index, to.Index]) );
             }
-            route.Add( new Link(path.ElementAt(path.Count - 1), target, 
+            route.Add( new Link(path.ElementAt(path.Count - 1), target,
                                 D[path.ElementAt(path.Count - 1).Index, target.Index]) );
             return route;
 
@@ -112,8 +112,8 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
             for(var k=0; k<cities.Count; k++)
                 for(var i=0; i<cities.Count; i++)
                     for(var j=0; j<cities.Count; j++)
-                        if( D[i,k] != Double.MaxValue 
-                         && D[k,j] != Double.MaxValue 
+                        if( D[i,k] != Double.MaxValue
+                         && D[k,j] != Double.MaxValue
                          && D[i,k]+D[k,j] < D[i,j] )
                         {
                             D[i,j] = D[i,k]+D[k,j];
@@ -124,12 +124,12 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
         private double[,] InitializeWeight(List<City> cities, List<Link> links)
         {
             var weight = new double[cities.Count, cities.Count];
-            
+
             // initialize with MaxValue:
             for (int i = 0; i < cities.Count; i++)
                 for (int j = 0; j < cities.Count; j++)
                     weight[i, j] = Double.MaxValue;
-        
+
             foreach(Link e in links)
             {
                 weight[e.FromCity.Index,e.ToCity.Index] = e.Distance;

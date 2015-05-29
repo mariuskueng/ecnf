@@ -12,29 +12,21 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
         public RoutesDijkstra(Cities cities):base(cities)
         {
         }
-
-        private List<Link> FindPath(List<City> citiesOnRoute, TransportModes mode)
-        {
-            var cityLinks = new List<Link>();
-            for (int i = 0; i < citiesOnRoute.Count - 1; i++)
-            {
-                cityLinks.Add(FindLink(citiesOnRoute[i], citiesOnRoute[i + 1], mode));
-            }
-            return cityLinks;
-        }
-
-        private Link FindLink(City u, City n, TransportModes mode)
-        {
-            return new Link(u, n, u.Location.Distance(n.Location), mode);
-        }
-
+                
         public override List<Link> FindShortestRouteBetween(string fromCity, string toCity,
-                                        TransportModes mode, Progress<string> progress)
+                                        TransportModes mode, IProgress<string> progress)
         {
             
             NotifyObservers(this, new RouteRequestEventArgs(fromCity, toCity, mode));
 
+            if (progress != null)
+                progress.Report("notified observers done");
+            
             var citiesBetween = cities.FindCitiesBetween(cities.FindCity(fromCity), cities.FindCity(toCity));
+
+            if (progress != null)
+                progress.Report("finding cities done");
+
             if (citiesBetween == null || citiesBetween.Count < 1 || routes == null || routes.Count < 1)
                 return null;
 
@@ -44,16 +36,32 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
             Dictionary<City, double> dist;
             Dictionary<City, City> previous;
             var q = FillListOfNodes(citiesBetween, out dist, out previous);
+
+            if (progress != null)
+                progress.Report("filling with nodes done");
+
             dist[source] = 0.0;
 
             // the actual algorithm
             previous = SearchShortestPath(mode, q, dist, previous);
 
+            if (progress != null)
+                progress.Report("finding shortest path done");
+
             // create a list with all cities on the route
             var citiesOnRoute = GetCitiesOnRoute(source, target, previous);
 
+            if (progress != null)
+                progress.Report("getting cities on route done");
+
             // prepare final list of links
             return FindPath(citiesOnRoute, mode);
+        }
+
+        public Task<List<Link>> FindShortestRouteBetweenAsync(string fromCity, string toCity,
+                                        TransportModes mode, Progress<string> progress)
+        {
+            return Task.Run(() => FindShortestRouteBetween(fromCity, toCity, mode, progress));
         }
 
         

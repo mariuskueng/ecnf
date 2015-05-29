@@ -78,7 +78,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
         }
 
         public abstract List<Link> FindShortestRouteBetween(string fromCity, string toCity,
-                                        TransportModes mode, Progress<string> progress);
+                                        TransportModes mode, IProgress<string> progress);
 
         public List<Link> FindShortestRouteBetween(string fromCity, string toCity,
                                         TransportModes mode)
@@ -93,7 +93,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
         }
 
         public Task<List<Link>> FindShortestRouteBetweenAsync(string fromCity, string toCity,
-                                        TransportModes mode, Progress<string> progress)
+                                        TransportModes mode, IProgress<string> progress)
         {
             return Task.Run(() => FindShortestRouteBetween(fromCity, toCity, mode, progress));
         }
@@ -111,6 +111,21 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
             }
 
             return q;
+        }
+
+        protected List<Link> FindPath(List<City> citiesOnRoute, TransportModes mode)
+        {
+            var cityLinks = new List<Link>();
+            for (int i = 0; i < citiesOnRoute.Count - 1; i++)
+            {
+                cityLinks.Add(FindLink(citiesOnRoute[i], citiesOnRoute[i + 1], mode));
+            }
+            return cityLinks;
+        }
+
+        protected Link FindLink(City u, City n, TransportModes mode)
+        {
+            return new Link(u, n, u.Location.Distance(n.Location), mode);
         }
 
         /// <summary>
