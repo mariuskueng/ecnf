@@ -12,20 +12,20 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
         public RoutesDijkstra(Cities cities):base(cities)
         {
         }
-                
+
         public override List<Link> FindShortestRouteBetween(string fromCity, string toCity,
-                                        TransportModes mode, IProgress<string> progress)
+                                        TransportModes mode, IProgress<string> reportProgress)
         {
-            
+
             NotifyObservers(this, new RouteRequestEventArgs(fromCity, toCity, mode));
 
-            if (progress != null)
-                progress.Report("notified observers done");
-            
+            if (reportProgress != null)
+                reportProgress.Report("<notified observers> done");
+
             var citiesBetween = cities.FindCitiesBetween(cities.FindCity(fromCity), cities.FindCity(toCity));
 
-            if (progress != null)
-                progress.Report("finding cities done");
+            if (reportProgress != null)
+                reportProgress.Report("<finding cities> done");
 
             if (citiesBetween == null || citiesBetween.Count < 1 || routes == null || routes.Count < 1)
                 return null;
@@ -37,34 +37,34 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
             Dictionary<City, City> previous;
             var q = FillListOfNodes(citiesBetween, out dist, out previous);
 
-            if (progress != null)
-                progress.Report("filling with nodes done");
+            if (reportProgress != null)
+                reportProgress.Report("<filling nodes> done");
 
             dist[source] = 0.0;
 
             // the actual algorithm
             previous = SearchShortestPath(mode, q, dist, previous);
 
-            if (progress != null)
-                progress.Report("finding shortest path done");
+            if (reportProgress != null)
+                reportProgress.Report("<finding shortest path> done");
 
             // create a list with all cities on the route
             var citiesOnRoute = GetCitiesOnRoute(source, target, previous);
 
-            if (progress != null)
-                progress.Report("getting cities on route done");
+            if (reportProgress != null)
+                reportProgress.Report("<getting cities on route> done");
 
             // prepare final list of links
             return FindPath(citiesOnRoute, mode);
         }
 
         public Task<List<Link>> FindShortestRouteBetweenAsync(string fromCity, string toCity,
-                                        TransportModes mode, Progress<string> progress)
+                                        TransportModes mode, Progress<string> reportProgress)
         {
-            return Task.Run(() => FindShortestRouteBetween(fromCity, toCity, mode, progress));
+            return Task.Run(() => FindShortestRouteBetween(fromCity, toCity, mode, reportProgress));
         }
 
-        
+
 
         /// <summary>
         /// Searches the shortest path for cities and the given links
@@ -116,7 +116,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
         }
 
         /// <summary>
-        /// Finds all neighbor cities of a city. 
+        /// Finds all neighbor cities of a city.
         /// </summary>
         /// <param name="city">source city</param>
         /// <param name="mode">transportation mode</param>
@@ -136,6 +136,6 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
             return neighbors;
         }
 
-        
+
     }
 }

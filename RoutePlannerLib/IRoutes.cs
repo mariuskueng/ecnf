@@ -23,6 +23,6 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
         /// <param name="mode">transportation mode</param>
         /// <returns></returns>
         List<Link> FindShortestRouteBetween(string fromCity, string toCity,
-                                                      TransportModes mode, IProgress<string> progress);
+                                                      TransportModes mode, IProgress<string> reportProgress);
     }
 }
