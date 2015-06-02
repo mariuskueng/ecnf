@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>fhnw-ecnf</authors>
+    <owners>fhnw-ecnf</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Part of a school project. Built only for demonstration purposes.</description>
+    <releaseNotes>initial Release</releaseNotes>
+    <copyright>Copyright 2015</copyright>
+    <tags>RoutePlanner FHNW ecnf SchoolProject</tags>
+  </metadata>
+</package>
